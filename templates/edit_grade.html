@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Edit Grade</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        nav form button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        form select, form input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav style="padding: 10px; background-color: #f2f2f2; display: flex; justify-content: space-between; align-items: center;">
+  <a href="/dashboard" style="
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s ease;
+  " onmouseover="this.style.backgroundColor='#007bff'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#007bff';">
+    Back to Dashboard
+  </a>
+
+  <form action="{{ url_for('logout') }}" method="post" style="margin: 0;">
+    <button type="submit" style="
+      background-color: #ff4d4d; 
+      color: white; 
+      border: none; 
+      padding: 8px 12px; 
+      cursor: pointer;
+      border-radius: 4px;
+    ">
+      Logout
+    </button>
+  </form>
+</nav>
+
+    <div class="container">
+        <h1>Edit Grade</h1>
+
+        <form method="post">
+            <label for="student_id">Student Name:</label>
+            <select name="student_id" id="student_id" required>
+                {% for student in students %}
+                <option value="{{ student[0] }}" {% if student[0] == grade[0] %}selected{% endif %}>{{ student[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="subject">Subject Name:</label>
+            <input type="text" id="subject" name="subject" value="{{ grade[1] }}" required/>
+
+            <label for="grade">Grade:</label>
+            <select name="grade" id="grade" required>
+                {% set current_grade = grade[2] %}
+                {% for g in ['S', 'A+', 'A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'P', 'F'] %}
+                <option value="{{ g }}" {% if g == current_grade %}selected{% endif %}>{{ g }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Update Grade</button>
+        </form>
+
+        <div class="back-link">
+            <a href="{{ url_for('view_grades') }}">Back to Grades</a>
+        </div>
+    </div>
+</body>
+</html>

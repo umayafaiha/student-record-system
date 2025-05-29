@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        a.button {
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+        }
+	 .edit {
+            background-color: #4CAF50;
+        }
+        .delete {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>All Students</h1>
+   <nav style="padding: 10px; background-color: #f2f2f2; display: flex; justify-content: space-between; align-items: center;">
+  <a href="/dashboard" style="
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s ease;
+  " onmouseover="this.style.backgroundColor='#007bff'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#007bff';">
+    Back to Dashboard
+  </a>
+
+  <form action="{{ url_for('logout') }}" method="post" style="margin: 0;">
+    <button type="submit" style="
+      background-color: #ff4d4d; 
+      color: white; 
+      border: none; 
+      padding: 8px 12px; 
+      cursor: pointer;
+      border-radius: 4px;
+    ">
+      Logout
+    </button>
+  </form>
+</nav>
+   
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Enrollment Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.course }}</td>
+                    <td>{{ student.enrollment_date }}</td>
+                    <td>
+			<a href="{{ url_for('edit_student', student_id=student.id) }}" class="button edit">Edit</a>
+                        <a href="{{ url_for('delete_student', student_id=student.id) }}" class="button delete">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <div style="text-align: center;">
+        <a href="{{ url_for('add_student') }}">Add New Student</a>
+    </div>
+
+</body>
+</html>

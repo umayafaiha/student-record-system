@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Add Grade | Student Record System</title>
+
+    <style>
+
+        body {
+
+            font-family: 'Segoe UI', sans-serif;
+
+            background-color: #f4f7f9;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+
+
+        header {
+
+            background-color: #004466;
+
+            color: white;
+
+            padding: 20px;
+
+            text-align: center;
+
+        }
+
+
+
+        nav {
+
+            background-color: #e3eaf2;
+
+            padding: 10px 20px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        nav form {
+
+            float: right;
+
+            margin: 0;
+
+        }
+
+
+
+        .logout-btn {
+
+            background-color: #d9534f;
+
+            color: white;
+
+            border: none;
+
+            padding: 8px 16px;
+
+            border-radius: 5px;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .logout-btn:hover {
+
+            background-color: #c9302c;
+
+        }
+
+
+
+        .container {
+
+            max-width: 600px;
+
+            margin: 40px auto;
+
+            background-color: white;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+
+        }
+
+
+
+        h2 {
+
+            text-align: center;
+
+            color: #004466;
+
+        }
+
+
+
+        label {
+
+            font-weight: bold;
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            margin-top: 20px;
+
+        }
+
+
+
+        select, input[type="text"] {
+
+            width: 100%;
+
+            padding: 10px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        button[type="submit"] {
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 30px;
+
+            background-color: #0077b6;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 6px;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        button[type="submit"]:hover {
+
+            background-color: #005f87;
+
+        }
+
+
+
+        .links {
+
+            margin-top: 30px;
+
+            text-align: center;
+
+        }
+
+
+
+        .links a {
+
+            text-decoration: none;
+
+            color: #0077b6;
+
+            font-weight: 500;
+
+            margin: 0 10px;
+
+        }
+
+
+
+        .links a:hover {
+
+            text-decoration: underline;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+<header>
+
+    <h1>Student Record System</h1>
+
+</header>
+
+
+
+<nav style="padding: 10px; background-color: #f2f2f2; display: flex; justify-content: space-between; align-items: center;">
+  <a href="/dashboard" style="
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s ease;
+  " onmouseover="this.style.backgroundColor='#007bff'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#007bff';">
+    Back to Dashboard
+  </a>
+
+  <form action="{{ url_for('logout') }}" method="post" style="margin: 0;">
+    <button type="submit" style="
+      background-color: #ff4d4d; 
+      color: white; 
+      border: none; 
+      padding: 8px 12px; 
+      cursor: pointer;
+      border-radius: 4px;
+    ">
+      Logout
+    </button>
+  </form>
+</nav>
+
+
+<div class="container">
+
+    <h2>Add Grade</h2>
+
+
+
+    <form method="POST" action="/add_grade">
+
+        <label for="student">Student Name:</label>
+
+        <select name="student" required>
+
+            <option value="" disabled selected>Select a student</option>
+
+            {% for student in students %}
+
+                <option value="{{ student[0] }}">{{ student[1] }}</option>
+
+            {% endfor %}
+
+        </select>
+
+
+
+        <label for="subject">Subject Name:</label>
+
+        <input type="text" name="subject" required>
+
+
+
+        <label for="grade">Grade:</label>
+
+        <select name="grade" required>
+
+            <option value="" disabled selected>Select a grade</option>
+
+            <option value="S">S</option>
+
+            <option value="A+">A+</option>
+
+            <option value="A">A</option>
+
+            <option value="B+">B+</option>
+
+            <option value="B">B</option>
+
+            <option value="C+">C+</option>
+
+            <option value="C">C</option>
+
+            <option value="D+">D+</option>
+
+            <option value="D">D</option>
+
+            <option value="P">P</option>
+
+            <option value="F">F</option>
+
+        </select>
+
+
+
+        <button type="submit">Add Grade</button>
+
+    </form>
+
+
+
+    <div class="links">
+
+        <a href="{{ url_for('view_grades') }}">View All Grades</a> |
+
+        <a href="{{ url_for('view_students') }}">Back to Students</a>
+
+    </div>
+
+</div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Edit Student</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 0 20px 40px;
+            color: #333;
+        }
+        nav {
+            padding: 12px 20px;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        nav button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        nav button:hover {
+            background-color: #e04343;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        form {
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+            margin-top: 18px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        input[type="submit"] {
+            margin-top: 28px;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 12px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        a.back-link {
+            display: block;
+            text-align: center;
+            margin-top: 28px;
+            color: #555;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a.back-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+  <a href="/dashboard">Back to Dashboard</a>
+  <form action="{{ url_for('logout') }}" method="post" style="margin:0;">
+    <button type="submit">Logout</button>
+  </form>
+</nav>
+
+<h1>Edit Student</h1>
+
+<form method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{ student.name }}" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{ student.email }}" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" value="{{ student.age }}" min="1" required>
+
+    <label for="course">Course:</label>
+    <select id="course" name="course" required>
+        {% set courses = ['CSE', 'CE', 'BME', 'ME', 'EEE'] %}
+        {% for course_option in courses %}
+            <option value="{{ course_option }}" {% if course_option == student.course %}selected{% endif %}>{{ course_option }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="enrollment_date">Enrollment Date:</label>
+    <input type="date" id="enrollment_date" name="enrollment_date" value="{{ student.enrollment_date }}" required>
+
+    <input type="submit" value="Update Student">
+</form>
+
+<a href="{{ url_for('view_students') }}" class="back-link">← Back to Student List</a>
+
+</body>
+</html>

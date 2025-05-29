@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Attendance</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        nav form button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        select, input[type="date"], button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+   <nav style="padding: 10px; background-color: #f2f2f2; display: flex; justify-content: space-between; align-items: center;">
+  <a href="/dashboard" style="
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s ease;
+  " onmouseover="this.style.backgroundColor='#007bff'; this.style.color='white';" onmouseout="this.style.backgroundColor=''; this.style.color='#007bff';">
+    Back to Dashboard
+  </a>
+
+  <form action="{{ url_for('logout') }}" method="post" style="margin: 0;">
+    <button type="submit" style="
+      background-color: #ff4d4d; 
+      color: white; 
+      border: none; 
+      padding: 8px 12px; 
+      cursor: pointer;
+      border-radius: 4px;
+    ">
+      Logout
+    </button>
+  </form>
+</nav>
+
+    <div class="container">
+        <h1>Add Attendance</h1>
+
+        <form method="POST" action="/attendance/add">
+            <label for="student_id">Student:</label>
+            <select name="student_id" id="student_id" required>
+                <option value="">Select Student</option>
+                {% for student in students %}
+                    <option value="{{ student[0] }}">{{ student[1] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="status">Status:</label>
+            <select id="status" name="status" required>
+                <option value="">Select Status</option>
+                <option value="Present">Present</option>
+                <option value="Absent">Absent</option>
+                <option value="Leave">Leave</option>
+            </select>
+
+            <button type="submit">Add Attendance</button>
+        </form>
+
+        <div class="links">
+            <a href="/attendance">Back to Attendance Records</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Student</title>
+  <style>
+    /* Reset & base */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0 20px 40px;
+      color: #333;
+    }
+
+    nav {
+      padding: 12px 20px;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 5px;
+      border: 1px solid #007bff;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #007bff;
+      color: white;
+    }
+
+    nav button {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    nav button:hover {
+      background-color: #e04343;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    form {
+      max-width: 480px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      user-select: none;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    select {
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+      width: 100%;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="number"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button[type="submit"] {
+      margin-top: 28px;
+      background-color: #007bff;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 12px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    .view-all-btn {
+      margin-top: 12px;
+      background-color: #6c757d;
+      color: white;
+      font-weight: 600;
+      padding: 12px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .view-all-btn:hover {
+      background-color: #565e64;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/dashboard">Back to Dashboard</a>
+  <form action="{{ url_for('logout') }}" method="post" style="margin:0;">
+    <button type="submit">Logout</button>
+  </form>
+</nav>
+
+<h1>Add Student</h1>
+
+<form method="POST" action="/add">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required />
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required />
+
+  <label for="age">Age:</label>
+  <input type="number" id="age" name="age" min="1" required />
+
+  <label for="course">Course:</label>
+  <select id="course" name="course" required>
+    <option value="" disabled selected>-- Select Course --</option>
+    <option value="CE">CE</option>
+    <option value="CSE">CSE</option>
+    <option value="BME">BME</option>
+    <option value="ME">ME</option>
+    <option value="EEE">EEE</option>
+  </select>
+
+  <label for="enrollment_date">Enrollment Date:</label>
+  <input type="date" id="enrollment_date" name="enrollment_date" required />
+
+  <button type="submit">Add Student</button>
+</form>
+
+<a href="/students" class="view-all-btn">View All Students</a>
+
+</body>
+</html>
