@@ -260,7 +260,7 @@ Student-Record-System/
 
 ```bash
 
-git clone https://github.com/your-username/student-record-system.git
+git clone https://github.com/umayafaiha/student-record-system.git
 
 cd student-record-system
 
@@ -292,5 +292,8 @@ python app.py
 ```bash
 
 http://127.0.0.1:5000/
+
+### License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 
